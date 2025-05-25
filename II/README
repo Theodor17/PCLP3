@@ -30,3 +30,5 @@ Datele sunt separate in seturi de antrenament si test, dupa care pentru fiecare 
 4. Evaluare
 Acest cod compara performanta mai multor modele de regresie si clasificare pe acelasi set de date, folosind pipeline-uri care includ preprocesarea variabilelor categorice cu one-hot encoder. Pentru partea de regresie, modele precum Linear Regression, Random Forest si SVR sunt antrenate pentru a prezice greutatea, iar rezultatele sunt evaluate cu RMSE, MAE si R^2, fiind afisate intr-un tabel.
 In partea a doua, se folosesc modele de clasificare (Logistic Regression, Decision Tree si Random Forest) pentru a prezice daca o specie este in pericol de disparitie. Modelele sunt evaluate dupa acuratete, F1-score si ROC AUC. La final, rezultatele sunt afisate intr-un alt tabel comparativ.
+
+Github: https://github.com/Theodor17/PCLP3.git
