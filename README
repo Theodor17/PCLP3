@@ -1,0 +1,32 @@
+Pirnog Theodor Ioan, 311CC
+
+1. Normalizarea datelor
+Acest cod proceseaza doua seturi de date (train si test) si le pregateste pentru a fi folosite intr-un model de ML. 
+Coloanele sunt impartite in doua tipuri: numerice (greutatea sau inaltimea) si categorice (specia sau habitatul). 
+Pentru datele numerice, se completeaza valorile lipsa cu mediana si aplica. Pentru datele categorice, completeaza 
+valorile lipsa cu valoarea cea mai frecventa si le transforma in format numeric prin one-hot encoding, adica le 
+transforma in coloane binare.
+Toate aceste transformari sunt combinate intr-un singur pipeline, care este aplicat atat pe datele de antrenament, 
+cat si pe cele de test. Rezultatul final este un nou set de date in care toate valorile sunt numerice.
+La final, datele procesate sunt afisate sub forma unui tabel, cu numele tuturor caracteristicilor generate.
+
+2. Analizarea datelor 
+a) Se verifica si se afiseaza valorile lipsa din seturile de date, atat intr-un tabel, cat si sub forma de heatmap. Rezultatul este salvat in png-uri cu numele no_data_for_train.png/no_data_for_test.png.
+
+b) Sunt afisate statistici descriptive pentru coloanele numerice si frecventa valorilor pentru coloanele categorice, pentru a intelege mai bine structura datelor.
+
+c) Se genereaza histograme cu densitate (pentru coloanele numerice) si countplot-uri (pentru coloanele categorice) pentru setul de date, salvand fiecare grafic intr-un fisier png in folderul eda_plots.
+
+d) Pentru fiecare coloana numerica, sunt create boxplot-uri pentru a vizualiza outlierii si este calculat intervalul IQR pentru a detecta si afisa valorile anormale (care ies din intervalul [Q1 - 1.5IQR, Q3 + 1.5IQR]). Se foloseste aceasta constanta 1.5 pentru ca este cea care imita cat mai bine distributia Gaussiana. Graficul este salvat in folderul outliers.
+
+e) Se genereaza o matrice de corelatie intre variabilele numerice, care arata cat de puternica este legatura intre fiecare pereche de variabile. Graficul este salvat in fisierul corelatii_train.png.
+
+f) Se transforma coloana tinta (Pericol de disparitie) intr-o variabila numerica (0 = Nu, 1 = Da), apoi se creeaza grafice de tip violin pentru a vedea distributia fiecarei variabile numerice in functie de pericolul de disparitie si grafice de tip countplot pentru a vedea cum sunt distribuite valorile categorice in functie de aceeasi eticheta. Graficele sunt salvate in folderul analiza_relationala.
+
+3. Antrenarea pe modele
+Se antreneaza trei modele de regresie (Linear Regression, Random Forest si SVR) pentru a prezice greutatea unei specii de animal folosind restul caracteristicilor. Coloanele categorice sunt transformate cu one-hot encoder, iar cele numerice sunt pastrate ca atare.
+Datele sunt separate in seturi de antrenament si test, dupa care pentru fiecare model se creeaza un pipeline care include preprocesarea si modelul. Se antreneaza modelul, se fac predictii pe setul de test si se evalueaza performanta prin: R^2 (care arata cat de bine se potriveste modelul pe date) si RMSE (eroarea medie patratica). Rezultatele sunt afisate pentru fiecare model.
+
+4. Evaluare
+Acest cod compara performanta mai multor modele de regresie si clasificare pe acelasi set de date, folosind pipeline-uri care includ preprocesarea variabilelor categorice cu one-hot encoder. Pentru partea de regresie, modele precum Linear Regression, Random Forest si SVR sunt antrenate pentru a prezice greutatea, iar rezultatele sunt evaluate cu RMSE, MAE si R^2, fiind afisate intr-un tabel.
+In partea a doua, se folosesc modele de clasificare (Logistic Regression, Decision Tree si Random Forest) pentru a prezice daca o specie este in pericol de disparitie. Modelele sunt evaluate dupa acuratete, F1-score si ROC AUC. La final, rezultatele sunt afisate intr-un alt tabel comparativ.

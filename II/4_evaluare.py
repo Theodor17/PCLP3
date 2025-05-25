@@ -90,7 +90,7 @@ preprocessor = ColumnTransformer(
     transformers = [
         ('cat', OneHotEncoder(drop = 'first'), cat_cols)
     ],
-    remainder='passthrough'
+    remainder = 'passthrough'
 )
 
 models_classification = {

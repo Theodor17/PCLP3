@@ -87,16 +87,16 @@ def histograme_numerice(df, cols, nume = 'dataset'):
         # vom crea histograme pt fiecare coloana numerica
         plt.figure(figsize = (8, 6))
         sns.histplot(df[col], kde = True, bins = 30)  # histograma cu curba de densitate
-        plt.title(f'Histogramă pentru {col}')
+        plt.title(f'Histograma pentru {col}')
         plt.xlabel(col)
-        plt.ylabel('Frecvență')
+        plt.ylabel('Frecventa')
 
         # salveaza fisierul in format .png in /eda_plots
         plt.savefig(f'eda_plots/histogram_{nume_valid}.png')
         plt.close()  # evitam suprapunerea graficelor prin inchiderea fisierelor
 
 # countplot pentru variabilele categorice
-def countplot_categorice(df, cols, nume='dataset'):
+def countplot_categorice(df, cols, nume = 'dataset'):
 
     # for a better org
     if not os.path.exists('eda_plots'):
@@ -111,7 +111,7 @@ def countplot_categorice(df, cols, nume='dataset'):
         sns.countplot(x = col, data = df, order = df[col].value_counts().index)  
         plt.title(f'Countplot pentru {col}')
         plt.xlabel(col)
-        plt.ylabel('Număr apariții')
+        plt.ylabel('Nr aparitii')
 
         # salveaza fisierul in format .png in /eda_plots
         plt.savefig(f'eda_plots/histogram_{nume_valid}.png')
@@ -145,7 +145,7 @@ def detectare_outlieri(df, cols):
         # identificare outliers
         outlieri = df[(df[col] < Q1 - 1.5 * IQR) | (df[col] > Q3 + 1.5 * IQR)]
         
-        print(f"Outlieri detectați în coloana '{col}': {len(outlieri)}")
+        print(f"Outlieri pe coloana '{col}': {len(outlieri)}")
         print(outlieri[[col]])
         print("\n")
 
@@ -154,7 +154,7 @@ detectare_outlieri(train, num_cols)
 # e) Analiza corelațiilor
 plt.figure(figsize = (12, 6))
 sns.heatmap(train[num_cols].corr(), annot = True, cmap = 'coolwarm', center = 0)
-plt.title('Matrice de corelații pentru variabile numerice')
+plt.title('Matrice de corelatii')
 plt.savefig('corelatii_train.png')
 plt.close()
 
@@ -169,8 +169,8 @@ if not os.path.exists('analiza_relationala'):
 for col in num_cols:
     plt.figure(figsize = (6, 4))
     sns.violinplot(x = 'Pericol_numeric', y = col, data = train)
-    plt.title(f'Relație {col} vs Pericol de dispariție')
-    plt.xlabel('Pericol de dispariție (0=Nu, 1=Da)')
+    plt.title(f'{col} vs Pericol de disparitie')
+    plt.xlabel('Pericol de disparitie (0 = Nu, 1 = Da)')
     plt.ylabel(col)
 
     plt.savefig(f'analiza_relationala/violin_{curata_nume_fisier(col)}_pericol.png')
@@ -180,7 +180,7 @@ for col in num_cols:
 for col in cat_cols:
     plt.figure(figsize = (8, 4))
     sns.countplot(x = col, hue = 'Pericol de disparitie', data = train)
-    plt.title(f'Relație {col} vs Pericol de dispariție')
+    plt.title(f'{col} vs Pericol de disparitie')
     
     plt.savefig(f'analiza_relationala/countplot_{curata_nume_fisier(col)}_pericol.png')
     plt.close()  
