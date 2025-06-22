@@ -28,7 +28,7 @@ preprocessor = ColumnTransformer(
     transformers = [
         ('cat', OneHotEncoder(drop = 'first'), cat_cols)  
     ], 
-    remainder='passthrough'  # pastram coloanele numerice asa cum sunt
+    remainder = 'passthrough'  # pastram coloanele numerice asa cum sunt
 )
 
 # definim cele 3 modele de regresie
